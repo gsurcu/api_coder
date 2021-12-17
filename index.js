@@ -1,9 +1,11 @@
-const path = require('path')
+const path = require('path');
 const express = require('express');
-const rutasApi = require('./routers/app.routers')
+
+const rutasApi = require('./routers/app.routers');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
 
 // Middlewares
 app.use(express.static('public'));
