@@ -2,8 +2,9 @@ const express = require('express');
 const {usuarios} = require('../../data/data')
 
 const router = express.Router();
+// /api/usuarios -> /
 
-app.get('/api/usuarios', (req,res) => {
+router.get('/', (req,res) => {
   const { rol, search } = req.query;
   let respuestaUsuarios = [...usuarios];
   if (Object.keys(req.query).length > 0) {
@@ -21,7 +22,7 @@ app.get('/api/usuarios', (req,res) => {
     return res.json(respuestaUsuarios);
 });
 
-app.get('/api/usuarios/:idUsuario', (req, res) => {
+router.get('/:idUsuario', (req, res) => {
   const { idUsuario } = req.params;
   if (isNaN(+idUsuario) || +idUsuario < 0 || +idUsuario % 1 !== 0) {
     return res.status(400).json({error: 'El parámetro debe ser un número entero mayor a cero'});
@@ -33,7 +34,7 @@ app.get('/api/usuarios/:idUsuario', (req, res) => {
   return res.json(usuario);
 });
 
-app.post('/api/usuarios', (req,res) => {
+router.post('/', (req,res) => {
   const { nombre, apellido, edad, email, rol } = req.body || {};
   if (!nombre || !apellido || !edad || !email || !rol) {
     let camposRequeridos = [];
@@ -56,7 +57,7 @@ app.post('/api/usuarios', (req,res) => {
   return res.json({ exito: true, resultado: nuevoUsuario});
 });
 
-app.put('/api/usuarios/:idUsuario', (req, res) => {
+router.put('/:idUsuario', (req, res) => {
   const { params: { idUsuario }, body: { nombre, apellido, edad, email, rol } } = req;
   if (isNaN(+idUsuario) || +idUsuario < 0 || +idUsuario % 1 !== 0) {
     return res.status(400).json({error: 'El parámetro debe ser un número entero mayor a cero'});
@@ -86,7 +87,7 @@ app.put('/api/usuarios/:idUsuario', (req, res) => {
   return res.json({ exito: true, resultado: usuarioModificado });
 });
 
-app.delete('/api/usuarios/:idUsuario', (req, res) => {
+router.delete('/:idUsuario', (req, res) => {
   const { idUsuario } = req.params;
   if (isNaN(+idUsuario) || +idUsuario < 0 || +idUsuario % 1 !== 0) {
     return res.status(400).json({error: 'El parámetro debe ser un número entero mayor a cero'});
