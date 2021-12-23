@@ -68,18 +68,16 @@
         </ul>
       </div>
     </nav>
-    <!-- Single File -->
-    <div class="single-file-form">
-      <form action='/api/archivo' enctype="multipart/form-data" method="POST">
-          <input type="file" id="archivo" name="archivo" class="input-file"><span onclick="clearFile('single')" class="clear-button">X</span>
-        <div><input type="submit" value="Upload File" class="upload-file-button"></div>
-      </form>
-    </div>
-    <!-- Multiple Files -->
+    <!-- Productos -->
     <div class="multiple-files-form">
-      <form action='/api/archivos' enctype="multipart/form-data" method="POST">
-          <input type="file" id="archivos" name="archivos" multiple class="input-file"><span onclick="clearFile('multiple')" class="clear-button">X</span>
-          <div><input type="submit" value="Upload Files" class="upload-file-button"></div>
+      <form action='/api/productos' enctype="multipart/form-data" method="POST">
+          <input type="text" id="nombre" name="nombre" class="input-file">
+          <input type="text" id="descripcion" name="descripcion" class="input-file">
+          <input type="text" id="precio" name="precio" class="input-file">
+          <input type="text" id="imagen" name="imagen" class="input-file">
+          <div><input type="submit" value="Upload Data" class="upload-file-button">
+            <button type="reset" class="clear-button not-style-button">X</button>
+          </div>
       </form>
     </div>
     <!-- javascript -->

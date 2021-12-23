@@ -1,3 +1,4 @@
+const { addProducto } = require('../../api/productos');
 const express = require('express');
 const {productos} = require('../../data/data')
 
@@ -19,7 +20,8 @@ router.get('/', (req, res) => {
     }
     return res.json(respuestaProductos);
   }
-    return res.json(respuestaProductos);
+  console.log(res)
+  return res.json(respuestaProductos);
 });
 
 router.get('/:idProducto', (req, res) => {
@@ -32,19 +34,11 @@ router.get('/:idProducto', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { nombre, descripcion, precio, imagen } = req.body;
-  if ( !nombre || !descripcion || !precio || !imagen) {
-    return res.status(400).send('El cuerpo tiene un formato incorrecto')
+  const producto = addProducto(req.body)
+  if (producto){
+    return res.status(201).json(producto);
   }
-  const nuevoProducto = {
-    id: productos.length + 1,
-    nombre,
-    descripcion,
-    precio,
-    imagen
-  };
-  productos.push(nuevoProducto);
-  return res.json(nuevoProducto);
+  return res.status(404).json({error:'una mensaje'})
 });
 
 router.put('/:idProducto', (req, res) => {
@@ -66,7 +60,6 @@ router.delete('/:idProducto', (req, res) => {
   const { idProducto } = req.params;
   const indiceProducto = productos.findIndex(producto => producto.id === +idProducto);
   if (indiceProducto < 0) return res.status(404).send(`Producto con id ${idProducto} no existe!`);
-  // productos = productos.filter(producto => producto.id !== +idProducto); mostrar error 500!!!
   productos.splice(indiceProducto, 1);
   return res.send('producto eliminado correctamente!');
 });
