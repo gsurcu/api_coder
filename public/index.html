@@ -68,16 +68,20 @@
         </ul>
       </div>
     </nav>
-    <!-- Productos -->
+    <!-- Subir Producto -->
     <div class="multiple-files-form">
-      <form action='/api/productos' enctype="multipart/form-data" method="POST">
-          <input type="text" id="nombre" name="nombre" class="input-file">
-          <input type="text" id="descripcion" name="descripcion" class="input-file">
-          <input type="text" id="precio" name="precio" class="input-file">
-          <input type="text" id="imagen" name="imagen" class="input-file">
-          <div><input type="submit" value="Upload Data" class="upload-file-button">
-            <button type="reset" class="clear-button not-style-button">X</button>
-          </div>
+      <form action='/api/productos' method="POST">
+        <label for="nombre" class="none"></label>  
+        <input type="text" id="nombre" name="nombre" class="input-file" required placeholder="Inserta el nombre del producto">
+        <label for="descripcion" class="none"></label>
+        <textarea id="descripcion" name="descripcion" class="input-file" required placeholder="Inserta la descripcion del producto"></textarea>
+        <label for="precio" class="none"></label>
+        <input type="text" id="precio" name="precio" class="input-file" required placeholder="Inserta el precio del producto">
+        <label for="imagen" class="none"></label>
+        <input type="text" id="imagen" name="imagen" class="input-file" required placeholder="Inserta la imagen del producto">
+        <div><input type="submit" value="Upload Data" class="upload-file-button">
+          <button type="reset" class="clear-button not-style-button">X</button>
+        </div>
       </form>
     </div>
     <!-- javascript -->

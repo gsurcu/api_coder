@@ -1,4 +1,4 @@
-const { addProducto } = require('../../api/productos');
+// const { addProducto } = require('../../api/productos');
 const express = require('express');
 const {productos} = require('../../data/data')
 
@@ -6,21 +6,7 @@ const router = express.Router();
 // /api/productos -> /
 
 router.get('/', (req, res) => {
-  const { precioMaximo, search } = req.query;
   let respuestaProductos = [...productos];
-  if (Object.keys(req.query).length > 0) {
-    if (precioMaximo) {
-      if (isNaN(+precioMaximo)) {
-        return res.status(400).send('precioMaximo debe ser un número válido');
-      }
-      respuestaProductos = respuestaProductos.filter(producto => producto.precio <= +precioMaximo);
-    }
-    if (search) {
-      respuestaProductos = respuestaProductos.filter(producto => producto.nombre.toLowerCase().startsWith(search.toLowerCase()))
-    }
-    return res.json(respuestaProductos);
-  }
-  console.log(res)
   return res.json(respuestaProductos);
 });
 
@@ -34,11 +20,20 @@ router.get('/:idProducto', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const producto = addProducto(req.body)
-  if (producto){
-    return res.status(201).json(producto);
+  const { nombre, descripcion, precio, imagen } = req.body;
+  if (!req.body) {
+    return res.status(400).send('El cuerpo tiene un formato incorrecto')
   }
-  return res.status(404).json({error:'una mensaje'})
+  console.log(req.body);
+  const nuevoProducto = {
+    id: productos.length + 1,
+    nombre,
+    descripcion,
+    precio,
+    imagen
+  };
+  productos.push(nuevoProducto);
+  return res.json(nuevoProducto);
 });
 
 router.put('/:idProducto', (req, res) => {
